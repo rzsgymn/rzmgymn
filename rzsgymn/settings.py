@@ -131,18 +131,18 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TINYMCE_DEFAULT_CONFIG = {
-    "theme": "silver",
-    "height": 500,
-    "menubar": True,
-    "plugins": """
-        advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,
-        fullscreen,insertdatetime,media,table,paste,code,help,wordcount
-    """,
-    "toolbar": """
-        undo redo | formatselect | bold italic | forecolor | alignleft aligncenter alignright alignjustify |
-        bullist numlist | outdent indent | link image | code  
-    """,
-   # "a11y_advanced_options": True,
-
-}
+# TINYMCE_DEFAULT_CONFIG = {
+#     "theme": "silver",
+#     "height": 500,
+#     "menubar": True,
+#     "plugins": """
+#         advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,
+#         fullscreen,insertdatetime,media,table,paste,code,help,wordcount
+#     """,
+#     "toolbar": """
+#         undo redo | formatselect | bold italic | forecolor | alignleft aligncenter alignright alignjustify |
+#         bullist numlist | outdent indent | link image | code
+#     """,
+#    # "a11y_advanced_options": True,
+#    #  https://www.codewithharry.in/videos/python-django-tutorials-hindi-100/
+# }

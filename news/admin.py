@@ -9,3 +9,6 @@ class NewsAdmin(admin.ModelAdmin):
         'date_created',
         'is_published',
     )
+
+    class Media:
+        js = ('js/tinyInject.js',)

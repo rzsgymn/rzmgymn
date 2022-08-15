@@ -1,6 +1,8 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from tinymce.models import HTMLField
+from django import forms
+
 
 class News(models.Model):
     class Meta:
