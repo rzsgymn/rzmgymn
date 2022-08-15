@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Person, SocialNetworkOfUser, TypeOfSocialNetwork, TypeOfAdministrativePosition, Administration
+from .models import Person, SocialNetworkOfUser, TypeOfSocialNetwork
 
 
 @admin.register(TypeOfSocialNetwork)
@@ -36,27 +36,3 @@ class PersonAdmin(admin.ModelAdmin):
     )
 
     inlines = [SocialNetworkOfUserInline]
-
-
-@admin.register(TypeOfAdministrativePosition)
-class TypeOfAdministrativePositionAdmin(admin.ModelAdmin):
-    list_display = (
-        'type_position',
-    )
-
-
-@admin.register(Administration)
-class AdministrationAdmin(admin.ModelAdmin):
-    list_display = (
-        'person_admin',
-        'position',
-    )
-
-# @admin.register(Person)
-# class PersonAdmin(admin.ModelAdmin):
-#     list_display = (
-#         'get_initials',
-#         'show_photo',
-#         'birthday',
-#         'liberated',
-#     )

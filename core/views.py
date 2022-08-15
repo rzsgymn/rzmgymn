@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .models import Facility, Testimonial
-from staff.models import Administration
+from administration.models import Administration
 
 
 def index(request):

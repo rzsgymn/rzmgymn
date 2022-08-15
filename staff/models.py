@@ -108,38 +108,3 @@ def pre_save_image(sender, instance, *args, **kwargs):
     if not old_file == new_file:
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
-
-
-class TypeOfAdministrativePosition(models.Model):
-    class Meta:
-        verbose_name_plural = 'Види адміністративної посади'
-
-    type_position = models.CharField(
-        max_length=64,
-        verbose_name='посада',
-        help_text='приклад: Директор гімназії | Заступник директора з навчально-виховної роботи...'
-    )
-
-    def __str__(self):
-        return self.type_position
-
-
-class Administration(models.Model):
-    class Meta:
-        verbose_name_plural = 'Адміністрація'
-
-    position = models.ForeignKey(
-        TypeOfAdministrativePosition,
-        on_delete=models.CASCADE,
-        verbose_name='посада'
-    )
-
-    person_admin = models.ForeignKey(
-        Person,
-        on_delete=models.CASCADE,
-        verbose_name='працівник',
-    )
-
-    def __str__(self):
-        return self.person_admin.get_fullname()
-

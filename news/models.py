@@ -1,6 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-
+from tinymce.models import HTMLField
 
 class News(models.Model):
     class Meta:
@@ -10,6 +10,7 @@ class News(models.Model):
     # author
     # categories
     # images
-    body = RichTextField(blank=True, null=True)
+    # body = RichTextField(blank=True, null=True)
+    content = HTMLField()
     date_created = models.DateField(verbose_name='Дата публікації')
     is_published = models.BooleanField(default=True, verbose_name='Публікувати')
