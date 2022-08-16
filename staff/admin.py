@@ -8,7 +8,6 @@ class SocialNetworkOfUserAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'class_name',
-
     )
 
 

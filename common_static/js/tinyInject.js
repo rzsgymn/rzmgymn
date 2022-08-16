@@ -1,6 +1,5 @@
 var script= document.createElement('script');
 script.type='text/javascript';
-//script.src="https://cdn.tiny.cloud/1/829djhntd24le2eg1v9kmy1yce0xqcer8wibohg2o3r8i5vb/tinymce/6/tinymce.min.js";
 script.src="https://cdn.tiny.cloud/1/829djhntd24le2eg1v9kmy1yce0xqcer8wibohg2o3r8i5vb/tinymce/6/tinymce.min.js";
 
 script.referrerpolicy="origin"

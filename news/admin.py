@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import News
+from .models import News, Categories, ImageOfPost
+
+
+class ImageOfPostInline(admin.StackedInline):
+    model = ImageOfPost
 
 
 @admin.register(News)
@@ -10,5 +14,20 @@ class NewsAdmin(admin.ModelAdmin):
         'is_published',
     )
 
-    class Media:
-        js = ('js/tinyInject.js',)
+    inlines = [ImageOfPostInline]
+
+
+@admin.register(Categories)
+class CategoriesAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'show_image',
+    )
+
+
+@admin.register(ImageOfPost)
+class ImageOfPostAdmin(admin.ModelAdmin):
+    list_display = (
+        'news',
+        'show_image',
+    )

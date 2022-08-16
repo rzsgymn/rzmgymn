@@ -22,6 +22,7 @@ from rzsgymn import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
+    path('', include('news.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]
 

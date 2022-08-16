@@ -12,7 +12,7 @@ class TypeOfSocialNetwork(models.Model):
     name = models.CharField(max_length=32, verbose_name='назва')
     class_name = models.CharField(
         max_length=32,
-        help_text='назви класів шукайте за посиланням https://fortawesome.com/sets/font-awesome-5-brands',
+        help_text='назви класів шукайте за посиланням https://fortawesome.com/sets/font-awesome-5-brands or https://fontawesome.com/',
         verbose_name="ім'я класу"
     )
 
