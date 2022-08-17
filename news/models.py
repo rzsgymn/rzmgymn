@@ -16,7 +16,7 @@ class ImageOfPost(models.Model):
     __WEIGHT = 300
 
     image = models.ImageField(
-        upload_to='image_of_post',
+        upload_to='image_of_post/%Y/%m',
         verbose_name='зображення',
         # help_text='фото має бути розміром 600x400 px',
     )
