@@ -24,30 +24,30 @@
         </div>
         <div class="row pb-3">
 
-            {% for new in news %}
+            {% for post in news %}
             <div class="col-lg-4 mb-4">
                 <div class="card border-0 shadow-sm mb-2">
 
-                    {% with img_obj=new.imageofpost_set.first %}
+                    {% with img_obj=post.imageofpost_set.first %}
                     {% if img_obj %}
                     <img class="card-img-top mb-2" src="{{ img_obj.image.url }}" alt="">
                     {% else %}
-                    <img class="card-img-top mb-2" src="{{ new.categories.image.url }}" alt="">
+                    <img class="card-img-top mb-2" src="{{ post.categories.image.url }}" alt="">
                     {% endif %}
                     {% endwith %}
 
                     <div class="card-body bg-light text-center p-4">
-                        <h4 class="">{{ new.title }}</h4>
+                        <h4 class="">{{ post.title }}</h4>
                         <div class="d-flex justify-content-center ">
-                            <small class="mr-3"><i class="fa fa-user text-primary"></i> {{ new.author.get_initials }}</small>
-                            <small class="mr-3"><i class="fa fa-folder text-primary"></i> {{ new.categories.name }}</small>
+                            <small class="mr-3"><i class="fa fa-user text-primary"></i> {{ post.author.get_initials }}</small>
+                            <small class="mr-3"><i class="fa fa-folder text-primary"></i> {{ post.categories.name }}</small>
                         </div>
                         <div class="mb-3">
-                            <small class="mr-3"><i class="fa fa-calendar-day text-primary"></i> {{ new.date_created }}</small>
+                            <small class="mr-3"><i class="fa fa-calendar-day text-primary"></i> {{ post.date_created }}</small>
                             <!--                            |date:"Y-m-d"-->
                             <i class="fa-solid fa-calendar-days"></i>
                         </div>
-                        <div>{{ new.preview_content }}</div>
+                        <div>{{ post.preview_content }}</div>
                         <a href="" class="btn btn-primary px-4 mx-auto my-2">Читати далі</a>
                     </div>
                 </div>

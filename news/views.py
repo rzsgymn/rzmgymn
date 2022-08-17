@@ -5,34 +5,6 @@ from .models import News
 COUNT_NEWS_OF_PAGE = 9
 
 
-def get_list_of_pages(active_n: int, end_n: int) -> tuple:
-    """
-    :param active_n: active number of page
-    :param end_n: end number of page
-    :return: first class name, last class name, list for render html
-    get_list_of_pages(1, 3) == 'disabled', '', [1, 2, 3]
-    get_list_of_pages(55, 100) == '', '', [1, 2, 0, 53, 54, 55, 56, 57, 0, 99, 100]
-    """
-
-    # lst = ['disabled' if active_n == 1 else '']
-    lst = []
-    if active_n <= 5:
-        [lst.append(n) for n in range(1, active_n)]
-    else:
-        lst.extend([1, 2, 0, active_n - 2, active_n - 1])
-
-    if active_n + 5 >= end_n:
-        [lst.append(n) for n in range(active_n, end_n + 1)]
-    else:
-        lst.extend([active_n, active_n + 1, active_n + 2, 0, end_n - 1, end_n])
-    # lst.append('disabled' if active_n == end_n else '')
-    return (
-        'disabled' if active_n == 1 else '',
-        'disabled' if active_n == end_n else '',
-        lst
-    )
-
-
 def blog(request):
     news = News.objects.filter(is_published=True).order_by('-date_created')
     paginator = Paginator(news, COUNT_NEWS_OF_PAGE)
@@ -54,3 +26,45 @@ def blog(request):
         'previous': page_number - 1
     }
     return render(request, 'news/blog.html', context=context)
+
+
+def blog_detail(request, pk):
+    post = News.objects.get(pk=pk)
+    images_of_post = post.imageofpost_set.all()
+    count_image = images_of_post.count()
+    context = {
+        'post': post,
+        'images_of_post': images_of_post,
+        'count_image': count_image,
+        'list_range_count_image': list(range(1, count_image)),
+        "author_src": post.author.photo.url if post.author.photo else None,
+    }
+    print(images_of_post.count())
+
+    return render(request, 'news/single.html', context=context)
+
+
+def get_list_of_pages(active_n: int, end_n: int) -> tuple:
+    """
+    :param active_n: active number of page
+    :param end_n: end number of page
+    :return: first class name, last class name, list for render html
+    get_list_of_pages(1, 3) == 'disabled', '', [1, 2, 3]
+    get_list_of_pages(55, 100) == '', '', [1, 2, 0, 53, 54, 55, 56, 57, 0, 99, 100]
+    """
+
+    lst = []
+    if active_n <= 5:
+        [lst.append(n) for n in range(1, active_n)]
+    else:
+        lst.extend([1, 2, 0, active_n - 2, active_n - 1])
+
+    if active_n + 5 >= end_n:
+        [lst.append(n) for n in range(active_n, end_n + 1)]
+    else:
+        lst.extend([active_n, active_n + 1, active_n + 2, 0, end_n - 1, end_n])
+    return (
+        'disabled' if active_n == 1 else '',
+        'disabled' if active_n == end_n else '',
+        lst,
+    )

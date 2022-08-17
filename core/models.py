@@ -66,7 +66,7 @@ class Facility(models.Model):
     class_name_icon = models.CharField(
         max_length=64,
         verbose_name="ім'я класу іконки",
-        help_text="ім'я класу вписуйте без крапки",
+        # help_text="ім'я класу вписуйте без крапки",
         choices=__ICON,
     )
     description = models.CharField(max_length=256, verbose_name='опис')

@@ -7,6 +7,8 @@ from staff.models import Person
 from django.dispatch import receiver
 from bs4 import BeautifulSoup
 
+NUMBER_OF_CHARACTERS_PREVIOUS_NEWS = 200
+
 
 class ImageOfPost(models.Model):
     class Meta:
@@ -131,6 +133,5 @@ class News(models.Model):
         return self.title[:20]
 
     def preview_content(self):
-        html = self.content[:160] + '...'
-        soup = BeautifulSoup(html, 'html.parser')
-        return soup.text
+        soup = BeautifulSoup(self.content, 'html.parser')
+        return soup.text[:NUMBER_OF_CHARACTERS_PREVIOUS_NEWS] + '...'
