@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="uk">
 <head>
     <meta charset="utf-8">
@@ -27,6 +27,9 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+{% block link %}
+{% endblock %}
 </head>
 
 <body>

@@ -8,7 +8,25 @@ asd asd asd	Директор гімназії
 Головань Анна Василівна	Заступник директора з виховної роботи
 Моргун Людмила Анатоліївна Заступник директора з виховної роботи
 Бабенко Володимир Петрович Заступник директора з навчально-виховної роботи
+-----------------
+Розумники
+щось про молочну школу 10 - 20 слів
 
+Може щось про STEAM
+Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...
+
+Спорт комплекс
+Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...
+
+Басейн
+Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...
+
+Щось про столовку
+Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...
+
+Educational Tour
+Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet elitr vero...
+-----------------
 |safe
 
 <script>

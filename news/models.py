@@ -67,7 +67,12 @@ class Categories(models.Model):
     __HEIGHT = 100
     __WEIGHT = 150
 
-    name = models.CharField(max_length=64, verbose_name='назва')
+    name = models.CharField(
+        max_length=64,
+        verbose_name='назва',
+        help_text='пишіть кожне слово з великої літери',
+        unique=True,
+    )
     image = models.ImageField(
         upload_to='categories',
         verbose_name='зображення',

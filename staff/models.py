@@ -9,11 +9,12 @@ class TypeOfSocialNetwork(models.Model):
     class Meta:
         verbose_name_plural = "Види соціальних мереж"
 
-    name = models.CharField(max_length=32, verbose_name='назва')
+    name = models.CharField(max_length=32, verbose_name='назва', unique=True)
     class_name = models.CharField(
         max_length=32,
         help_text='назви класів шукайте за посиланням https://fortawesome.com/sets/font-awesome-5-brands or https://fontawesome.com/',
-        verbose_name="ім'я класу"
+        verbose_name="ім'я класу",
+        unique=True,
     )
 
     def __str__(self):

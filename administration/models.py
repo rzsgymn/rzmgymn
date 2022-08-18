@@ -10,8 +10,10 @@ class TypeOfAdministrativePosition(models.Model):
     type_position = models.CharField(
         max_length=64,
         verbose_name='посада',
-        help_text='приклад: Директор гімназії | Заступник директора з навчально-виховної роботи...'
+        help_text='приклад: Директор гімназії | Заступник директора з навчально-виховної роботи...',
+        unique=True,
     )
+    # is_boss = models.Model()
 
     def __str__(self):
         return self.type_position

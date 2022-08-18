@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from news.models import News
 from .models import Facility, Testimonial
 from administration.models import Administration
 
@@ -22,10 +23,11 @@ def index(request):
             "social_network": social_network,
             "src": admin.person_admin.photo.url if admin.person_admin.photo else None,
         })
-
+    news = News.objects.filter(is_published=True).order_by('-date_created')[:3]
     context = {
         "facilities": facilities,
         "testimonials": testimonials,
         "administration": administration,
+        "news": news,
     }
     return render(request, 'core/index.html', context=context)

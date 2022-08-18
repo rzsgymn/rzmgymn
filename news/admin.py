@@ -16,6 +16,11 @@ class NewsAdmin(admin.ModelAdmin):
 
     inlines = [ImageOfPostInline]
 
+    # class Media:
+    #     css = {
+    #         'all': ('css/style.css', )
+    #     }
+
 
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):

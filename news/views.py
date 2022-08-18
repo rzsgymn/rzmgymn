@@ -1,14 +1,21 @@
-from django.shortcuts import render
 from django.core.paginator import Paginator
-from .models import News
+from django.shortcuts import render
+
+from .models import News, Categories
 
 COUNT_NEWS_OF_PAGE = 9
 
 
 def blog(request):
-    news = News.objects.filter(is_published=True).order_by('-date_created')
+    active_category = request.GET.get('cat', '')
+
+    if active_category:
+        news = News.objects.filter(categories__name=active_category).filter(is_published=True).order_by('-date_created')
+    else:
+        news = News.objects.filter(is_published=True).order_by('-date_created')
     paginator = Paginator(news, COUNT_NEWS_OF_PAGE)
-    page_number = int(request.GET.get('page', 1))
+    page_number = validator_of_positive_numbers(request.GET.get('page', '1'))
+
     page_obj = paginator.get_page(page_number)
 
     end_n = paginator.page_range.stop - 1
@@ -18,12 +25,14 @@ def blog(request):
     class_first_page, class_last_page, list_of_pages = get_list_of_pages(page_number, end_n)
     context = {
         'news': page_obj.object_list,
+        'categories': Categories.objects.all(),
+        'active_category': active_category,
         'list_of_pages': list_of_pages,
         'class_first_page': class_first_page,
         'class_last_page': class_last_page,
         'page_number': page_number,
         'next_link': page_number + 1,
-        'previous': page_number - 1
+        'previous': page_number - 1,
     }
     return render(request, 'news/blog.html', context=context)
 
@@ -37,7 +46,8 @@ def blog_detail(request, pk):
         'images_of_post': images_of_post,
         'count_image': count_image,
         'list_range_count_image': list(range(1, count_image)),
-        "author_src": post.author.photo.url if post.author.photo else None,
+        'author_src': post.author.photo.url if post.author.photo else None,
+        'categories': Categories.objects.all(),
     }
     print(images_of_post.count())
 
@@ -68,3 +78,9 @@ def get_list_of_pages(active_n: int, end_n: int) -> tuple:
         'disabled' if active_n == end_n else '',
         lst,
     )
+
+
+def validator_of_positive_numbers(n: str) -> int:
+    if len(set(n) - set('0123456789')) == 0:
+        return int(n)
+    return 1
