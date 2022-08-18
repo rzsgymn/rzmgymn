@@ -4,6 +4,7 @@ from .models import News, Categories, ImageOfPost
 
 class ImageOfPostInline(admin.StackedInline):
     model = ImageOfPost
+    extra = 3
 
 
 @admin.register(News)
