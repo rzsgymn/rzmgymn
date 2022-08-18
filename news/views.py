@@ -32,7 +32,7 @@ def blog(request):
         'class_last_page': class_last_page,
         'page_number': page_number,
         'next_link': page_number + 1,
-        'previous': page_number - 1,
+        'previous_link': page_number - 1,
     }
     return render(request, 'news/blog.html', context=context)
 

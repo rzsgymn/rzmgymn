@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Person, SocialNetworkOfUser, TypeOfSocialNetwork
+from certificate.models import Certificate
 
 
 @admin.register(TypeOfSocialNetwork)
@@ -22,6 +23,12 @@ class SocialNetworkOfUserAdmin(admin.ModelAdmin):
 
 class SocialNetworkOfUserInline(admin.StackedInline):
     model = SocialNetworkOfUser
+    extra = 1
+
+
+class CertificateInline(admin.StackedInline):
+    model = Certificate
+    extra = 1
 
 
 @admin.register(Person)
@@ -34,4 +41,7 @@ class PersonAdmin(admin.ModelAdmin):
         'liberated',
     )
 
-    inlines = [SocialNetworkOfUserInline]
+    inlines = [
+        SocialNetworkOfUserInline,
+        CertificateInline,
+    ]
