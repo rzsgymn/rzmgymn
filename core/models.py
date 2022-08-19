@@ -3,6 +3,7 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.utils.html import mark_safe
+from tinymce.models import HTMLField
 
 
 def jsonfield_default_value():
@@ -38,6 +39,33 @@ class Menu(models.Model):
         default=jsonfield_default_value,
         help_text="Для зручної роботи з JSON використовуйте JSONReader https://jsonformatter.org/"
     )
+
+
+class Alerts(models.Model):
+    class Meta:
+        verbose_name_plural = "Оголошення"
+
+    __CLASS_NAME = (
+        ('primary', 'primary'),
+        ('secondary', 'secondary'),
+        ('success', 'success'),
+        ('danger', 'danger'),
+        ('warning', 'warning'),
+        ('info', 'info'),
+        ('light', 'light'),
+        ('dark', 'dark'),
+    )
+
+    title = models.CharField(max_length=128, verbose_name='заголовок')
+
+    style = models.CharField(
+        max_length=32,
+        choices=__CLASS_NAME,
+    )
+
+    body = HTMLField()
+
+    is_published = models.BooleanField(default=True, verbose_name='Публікувати')
 
 
 class Facility(models.Model):

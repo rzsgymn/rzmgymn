@@ -152,9 +152,21 @@ Author: Freepik
 
 """
 
-new_w = []
-for w in _class.split('\n'):
-    if len(w) != 0 and w[0] == '.':
-        tmp = w.split('-', maxsplit=1)
-        print(f'("{w[1:]}", "{tmp[-1]}"),')
-        # new_w.append(tmp[-1])
+
+
+# new_w = []
+# for w in _class.split('\n'):
+#     if len(w) != 0 and w[0] == '.':
+#         tmp = w.split('-', maxsplit=1)
+#         print(f'("{w[1:]}", "{tmp[-1]}"),')
+#         # new_w.append(tmp[-1])
+
+
+primary
+secondary
+success
+danger
+warning
+info
+light
+dark

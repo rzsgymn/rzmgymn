@@ -2,11 +2,12 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from news.models import News
-from .models import Facility, Testimonial
+from .models import Facility, Testimonial, Alerts
 from administration.models import Administration
 
 
 def index(request):
+    alerts = Alerts.objects.filter(is_published=True)
     facilities = Facility.objects.all()
     testimonials = Testimonial.objects.all()
     administration = []
@@ -26,6 +27,7 @@ def index(request):
         })
     news = News.objects.filter(is_published=True).order_by('-date_created')[:3]
     context = {
+        "alerts": alerts,
         "facilities": facilities,
         "testimonials": testimonials,
         "administration": administration,
@@ -39,7 +41,7 @@ def get_json_menu(request):
         'data': [
             {
                 'name': 'Головна',
-                'link': '',
+                'link': '/',
             },
             {
                 'name': 'Про нас',
@@ -62,11 +64,11 @@ def get_json_menu(request):
                 'sub_link': [
                     {
                         'name': 'Blog Grid',
-                        'link': '',
+                        'link': 'qwerqwer',
                     },
                     {
                         'name': 'Blog Detail',
-                        'link': '',
+                        'link': 'qwerqwer',
                     },
                 ]
             },
