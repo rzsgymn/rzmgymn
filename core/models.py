@@ -5,6 +5,41 @@ from django.dispatch import receiver
 from django.utils.html import mark_safe
 
 
+def jsonfield_default_value():
+    JSON = [
+        {
+            'name': 'Головна',
+        },
+        {
+            'name': 'Новини',
+        }
+
+    ]
+    return JSON
+
+
+class Menu(models.Model):
+    class Meta:
+        verbose_name_plural = "Меню"
+
+    __TYPE_MENU = (
+        ('main_menu', 'головне меню'),
+        ('footer_menu_row1', 'меню підвалу 1-ша колонка'),
+        ('footer_menu_row2', 'меню підвалу 2-га колонка'),
+    )
+
+    type_menu = models.CharField(
+        max_length=64,
+        unique=True,
+        verbose_name='тип меню',
+        choices=__TYPE_MENU,
+    )
+    json = models.JSONField(
+        default=jsonfield_default_value,
+        help_text="Для зручної роботи з JSON використовуйте JSONReader https://jsonformatter.org/"
+    )
+
+
 class Facility(models.Model):
     class Meta:
         verbose_name_plural = "Зручності"
@@ -61,7 +96,6 @@ class Facility(models.Model):
         ("flaticon-049-cutlery", "049-cutlery"),
         ("flaticon-050-fence", "050-fence"),
     )
-
     title = models.CharField(max_length=32, verbose_name='заголовок')
     class_name_icon = models.CharField(
         max_length=64,
@@ -90,7 +124,8 @@ class Testimonial(models.Model):
     @property
     def show_photo(self):
         if self.photo:
-            return mark_safe(f'<img src="{self.photo.url}" width="{self.__SIZE_PHOTO}" height="{self.__SIZE_PHOTO}" />')
+            return mark_safe(
+                f'<img src="{self.photo.url}" width="{self.__SIZE_PHOTO}" height="{self.__SIZE_PHOTO}" />')
         return ""
 
     def __str__(self):

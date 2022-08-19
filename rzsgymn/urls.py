@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('', include('news.urls')),
+    path('', include('pages.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]
 

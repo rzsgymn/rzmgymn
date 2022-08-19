@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from news.models import News
@@ -31,3 +32,49 @@ def index(request):
         "news": news,
     }
     return render(request, 'core/index.html', context=context)
+
+
+def get_json_menu(request):
+    json = {
+        'data': [
+            {
+                'name': 'Головна',
+                'link': '',
+            },
+            {
+                'name': 'Про нас',
+                'link': '/about',
+            },
+            {
+                'name': 'Новини',
+                'link': '/blog',
+            },
+            {
+                'name': 'Teachers',
+                'link': '/teachers',
+            },
+            {
+                'name': 'Галерея',
+                'link': '/galeru',
+            },
+            {
+                'name': 'Pages',
+                'sub_link': [
+                    {
+                        'name': 'Blog Grid',
+                        'link': '',
+                    },
+                    {
+                        'name': 'Blog Detail',
+                        'link': '',
+                    },
+                ]
+            },
+            {
+                'name': 'Контакти',
+                'link': '/contact',
+            },
+        ]
+    }
+
+    return JsonResponse(json)

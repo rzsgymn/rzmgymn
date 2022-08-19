@@ -44,12 +44,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                <div class="navbar-nav font-weight-bold mx-auto py-0" id="mainMenu">
                     <a href="{% url 'index' %}" class="nav-item nav-link active">Головна</a>
-                    <a href="about.html" class="nav-item nav-link">Про нас</a>
                     <a href="{% url 'blog' %}" class="nav-item nav-link">Новини</a>
-                    <a href="team.html" class="nav-item nav-link">Teachers</a>
-                    <a href="gallery.html" class="nav-item nav-link">Галерея</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu rounded-0 m-0">
@@ -57,7 +54,6 @@
                             <a href="single.html" class="dropdown-item">Blog Detail</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Контакти</a>
                 </div>
                 <!-- <a href="" class="btn btn-primary px-4">Join Class</a> -->
             </div>
@@ -175,7 +171,59 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
-{% block script %}
+    <script>
+
+        window.onload=function(e){
+
+            $.ajax('http://127.0.0.1:8000/api/menu')
+             .done(data => main(data))
+             .fail((xhr, status) => console.log('error:', status));
+
+
+            let main = (data) => {
+                let listLink = data.data
+                if (listLink) {
+
+                    let mainMenu = document.getElementById('mainMenu');
+
+                    for (let i = 0; i < listLink.length; i++) {
+                        obj = listLink[i];
+                        if (obj.hasOwnProperty('sub_link')) {
+                            let subListLink = obj.sub_link;
+
+                            let elemDiv = document.createElement('div');
+                            elemDiv.classList.add('dropdown-menu');
+                            elemDiv.classList.add('rounded-0');
+                            elemDiv.classList.add('m-0');
+                            for (var j = 0; j < subListLink.length; j++) {
+                                sub_obj = subListLink[j];
+                                let elemA = document.createElement('a');
+                                elemA.href = sub_obj.link;
+                                elemA.classList.add('dropdown-item');
+                                elemA.text = sub_obj.name;
+                                elemDiv.appendChild(elemA)
+                                // console.log(sub_obj);
+                            console.log(obj);
+                                
+                            }
+                            mainMenu.appendChild(elemDiv)
+                        } else {
+                            let elemA = document.createElement('a');
+                            elemA.href = obj.link;
+                            elemA.classList.add('nav-item');
+                            elemA.classList.add('nav-link');
+                            elemA.text = obj.name;
+                            mainMenu.appendChild(elemA)
+                            console.log(obj);
+                        }
+                    }
+                }
+            };
+        }
+
+
+    </script>
+    {% block script %}
 {% endblock %}
 </body>
 </html>
