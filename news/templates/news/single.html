@@ -25,7 +25,6 @@
                     <p class="mr-3"><i class="fa fa-user text-primary"></i> {{ post.author.get_initials }}</p>
                     <p class="mr-3"><i class="fa fa-folder text-primary"></i> {{ post.categories.name }}</p>
                     <p class="mr-3"><i class="fa fa-calendar-day text-primary"></i> {{ post.date_created }}</p>
-
                 </div>
             </div>
             <div class="mb-5">
@@ -65,72 +64,90 @@
 
             </div>
 
+            {% if related_posts %}
             <!-- Related Post -->
             <div class="mb-5 mx-n3">
-                <h2 class="mb-4 ml-3">Related Post</h2>
+                <h2 class="mb-4 ml-3">Схожі новини</h2>
                 <div class="owl-carousel post-carousel position-relative">
+
+                    {% for related_post in related_posts %}
+
                     <div class="d-flex align-items-center bg-light shadow-sm rounded overflow-hidden mx-3">
-                        <img class="img-fluid" src="img/post-1.jpg" style="width: 80px; height: 80px;">
+
+                        {% with img_obj=related_post.imageofpost_set.first %}
+                        {% if img_obj %}
+                        <img class="img-fluid" src="{{ img_obj.image.url }}" style="width: 80px; height: 80px;"
+                             alt="related_post_image">
+                        {% else %}
+                        <img class="img-fluid" src="{{ post.categories.image.url }}" style="width: 80px; height: 80px;"
+                             alt="related_post_image">
+                        {% endif %}
+                        {% endwith %}
+
                         <div class="pl-3">
-                            <h5 class="">Diam amet eos at no eos</h5>
-                            <div class="d-flex">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
-                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
-                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+                            {% if related_post.title|length > 20 %}
+                            <h5>
+                                <a href="{% url 'blog_detail' related_post.pk %}" class="text-dark">
+                                    {{ related_post.title|slice:20 }}...
+                                </a>
+                            </h5>
+                            {% else %}
+                            <h5>
+                                <a href="{% url 'blog_detail' related_post.pk %}" class="text-dark">
+                                    {{ related_post.title }}
+                                </a>
+                            </h5>
+                            {% endif %}
+                            <div>
+                                <small class="mr-3">
+                                    <i class="fa fa-user text-primary"></i>
+                                    {{ related_post.author.get_initials }}
+                                </small>
+                                <br>
+                                <small class="mr-3">
+                                    <i class="fa fa-folder text-primary"></i>
+                                    {{ related_post.date_created|date:"Y-m-d" }}
+                                </small>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center bg-light shadow-sm rounded overflow-hidden mx-3">
-                        <img class="img-fluid" src="img/post-2.jpg" style="width: 80px; height: 80px;">
-                        <div class="pl-3">
-                            <h5 class="">Diam amet eos at no eos</h5>
-                            <div class="d-flex">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
-                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
-                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center bg-light shadow-sm rounded overflow-hidden mx-3">
-                        <img class="img-fluid" src="img/post-3.jpg" style="width: 80px; height: 80px;">
-                        <div class="pl-3">
-                            <h5 class="">Diam amet eos at no eos</h5>
-                            <div class="d-flex">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
-                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
-                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
             </div>
-
-            <!-- Comment List -->
+            {% endif %}
 
         </div>
 
         <div class="col-lg-4 mt-5 mt-lg-0">
+
             <!-- Author Bio -->
             <div class="d-flex flex-column text-center bg-primary rounded mb-5 py-5 px-4">
 
-                {% if author_src %}
-                <img src="{{ author_src }}" class="img-fluid rounded-circle mx-auto mb-3" style="width: 100px;">
-                {% else %}
-                <img src="{% static 'img/user.png' %}" class="img-fluid rounded-circle mx-auto mb-3" style="width: 100px;">
+                <img src="{{ post.author.photo.url }}" class="img-fluid rounded-circle mx-auto mb-3"
+                     style="width: 100px;">
+
+                {% with author=post.author %}
+                <h3 class="text-secondary mb-3">
+                    <a href="{% url 'staff_detail' author.pk %}" class="text-white">
+                        {{ author.get_initials }}
+                    </a>
+                </h3>
+                {% if author.life_credo %}
+                <p class="text-white m-0">{{ author.life_credo }}</p>
                 {% endif %}
-                <h3 class="text-secondary mb-3">{{ post.author.get_initials }}</h3>
-                <p class="text-white m-0">Conset elitr erat vero dolor ipsum et diam, eos dolor lorem ipsum, ipsum ipsum
-                    sit no ut est. Guber ea ipsum erat kasd amet est elitr ea sit.</p>
+                {% endwith %}
+
             </div>
 
-            <!-- Search Form -->
+
             <div class="mb-5">
                 <form action="">
                     <div class="input-group">
                         <input type="text" class="form-control form-control-lg" placeholder="Keyword">
                         <div class="input-group-append">
-                                <span class="input-group-text bg-transparent text-primary"><i
-                                        class="fa fa-search"></i></span>
+                            <span class="input-group-text bg-transparent text-primary"><i
+                                    class="fa fa-search"></i></span>
                         </div>
                     </div>
                 </form>
@@ -140,10 +157,10 @@
             <div class="mb-5">
                 <h2 class="mb-4">Категорії</h2>
                 <ul class="list-group list-group-flush">
-                    {% for category in categories|dictsort:'name' %}
+                    {% for category in categories %}
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                         <a href="{% url 'blog' %}?cat={{ category.name }}">{{ category.name }}</a>
-                        <span class="badge badge-primary badge-pill">150</span>
+                        <span class="badge badge-primary badge-pill">{{ category.news_set.count }}</span>
                     </li>
                     {% endfor %}
                 </ul>
@@ -153,44 +170,6 @@
             <!--                <div class="mb-5">-->
             <!--                    <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">-->
             <!--                </div>-->
-
-            <!-- Recent Post -->
-            <!--            <div class="mb-5">-->
-            <!--                <h2 class="mb-4">Recent Post</h2>-->
-            <!--                <div class="d-flex align-items-center bg-light shadow-sm rounded overflow-hidden mb-3">-->
-            <!--                    <img class="img-fluid" src="img/post-1.jpg" style="width: 80px; height: 80px;">-->
-            <!--                    <div class="pl-3">-->
-            <!--                        <h5 class="">Diam amet eos at no eos</h5>-->
-            <!--                        <div class="d-flex">-->
-            <!--                            <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>-->
-            <!--                            <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>-->
-            <!--                            <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="d-flex align-items-center bg-light shadow-sm rounded overflow-hidden mb-3">-->
-            <!--                    <img class="img-fluid" src="img/post-2.jpg" style="width: 80px; height: 80px;">-->
-            <!--                    <div class="pl-3">-->
-            <!--                        <h5 class="">Diam amet eos at no eos</h5>-->
-            <!--                        <div class="d-flex">-->
-            <!--                            <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>-->
-            <!--                            <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>-->
-            <!--                            <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="d-flex align-items-center bg-light shadow-sm rounded overflow-hidden mb-3">-->
-            <!--                    <img class="img-fluid" src="img/post-3.jpg" style="width: 80px; height: 80px;">-->
-            <!--                    <div class="pl-3">-->
-            <!--                        <h5 class="">Diam amet eos at no eos</h5>-->
-            <!--                        <div class="d-flex">-->
-            <!--                            <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>-->
-            <!--                            <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>-->
-            <!--                            <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
 
 
             <!-- Single Image -->
@@ -203,6 +182,7 @@
             <!--                    <h2 class="mb-4">Plain Text</h2>-->
             <!--                    Aliquyam sed lorem stet diam dolor sed ut sit. Ut sanctus erat ea est aliquyam dolor et. Et no consetetur eos labore ea erat voluptua et. Et aliquyam dolore sed erat. Magna sanctus sed eos tempor rebum dolor, tempor takimata clita sit et elitr ut eirmod.-->
             <!--                </div>-->
+
         </div>
     </div>
 </div>
@@ -210,10 +190,15 @@
 {% endblock %}
 
 {% block script %}
+{% endblock %}
+
 <script>
     let el = document.getElementById('carousel-inner')
     el.firstElementChild.classList.add('active')
 
 
+
+
+
+
 </script>
-{% endblock %}

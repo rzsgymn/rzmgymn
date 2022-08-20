@@ -22,6 +22,7 @@ class ImageOfPost(models.Model):
         verbose_name='зображення',
         # help_text='фото має бути розміром 600x400 px',
     )
+
     news = models.ForeignKey(
         'News',
         on_delete=models.CASCADE,
@@ -70,7 +71,7 @@ class Categories(models.Model):
     name = models.CharField(
         max_length=64,
         verbose_name='назва',
-        help_text='пишіть кожне слово з великої літери',
+        help_text='перше слово має бути з великої літери',
         unique=True,
     )
     image = models.ImageField(
@@ -137,6 +138,11 @@ class News(models.Model):
     def __str__(self):
         return self.title[:20]
 
+    def get_author(self):
+        return self.author.get_initials()
+
     def preview_content(self):
-        soup = BeautifulSoup(self.content, 'html.parser')
-        return soup.text[:NUMBER_OF_CHARACTERS_PREVIOUS_NEWS] + '...'
+        soup_text = BeautifulSoup(self.content, 'html.parser').text
+        if len(soup_text) > NUMBER_OF_CHARACTERS_PREVIOUS_NEWS:
+            return soup_text[:NUMBER_OF_CHARACTERS_PREVIOUS_NEWS] + '...'
+        return soup_text

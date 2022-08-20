@@ -1,12 +1,14 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
 from .models import News, Categories
 
 COUNT_NEWS_OF_PAGE = 9
 
 
 def blog(request):
+    print(dir(request))
+    print(request.COOKIES)
+    # print(request.META)
     active_category = request.GET.get('cat', '')
 
     if active_category:
@@ -38,18 +40,18 @@ def blog(request):
 
 
 def blog_detail(request, pk):
-    post = News.objects.get(pk=pk)
+    post = get_object_or_404(News, pk=pk)
     images_of_post = post.imageofpost_set.all()
     count_image = images_of_post.count()
+    related_posts = News.objects.filter(categories__name=post.categories).order_by('-date_created')[:4]
     context = {
         'post': post,
         'images_of_post': images_of_post,
         'count_image': count_image,
+        'related_posts': [obj for obj in related_posts if obj.pk != post.pk],
         'list_range_count_image': list(range(1, count_image)),
-        'author_src': post.author.photo.url if post.author.photo else None,
-        'categories': Categories.objects.all(),
+        'categories': Categories.objects.order_by('name'),
     }
-    print(images_of_post.count())
 
     return render(request, 'news/single.html', context=context)
 

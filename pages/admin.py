@@ -15,5 +15,6 @@ class ImageOfPageAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'get_link',
+        'data',
         'show_image',
     )

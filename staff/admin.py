@@ -34,8 +34,8 @@ class CertificateInline(admin.StackedInline):
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = (
-        '__str__',
-        # 'get_initials',
+        'get_fullname',
+        'sex',
         'show_photo',
         'birthday',
         'liberated',

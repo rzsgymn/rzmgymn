@@ -33,6 +33,8 @@ class ImageOfPage(models.Model):
         verbose_name='зображення',
     )
 
+    data = models.DateField(auto_now_add=True, verbose_name='Дата завантаження')
+
     @property
     def show_image(self):
         if self.image:

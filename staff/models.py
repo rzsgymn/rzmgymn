@@ -3,6 +3,7 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.utils.html import mark_safe
+from tinymce.models import HTMLField
 
 
 class TypeOfSocialNetwork(models.Model):
@@ -45,11 +46,19 @@ class Person(models.Model):
 
     liberated = models.BooleanField(default=True, verbose_name='працює')
 
-    sex = models.CharField(
-        max_length=36,
+    # sex = models.CharField(
+    #     max_length=36,
+    #     choices=(
+    #         ('woman', 'жіноча'),
+    #         ('man', 'чоловіча'),
+    #     ),
+    #     verbose_name='стать'
+    # )
+
+    sex = models.SmallIntegerField(
         choices=(
-            ('woman', 'жіноча'),
-            ('man', 'чоловіча'),
+            (0, 'жіноча'),
+            (1, 'чоловіча'),
         ),
         verbose_name='стать'
     )
@@ -62,22 +71,38 @@ class Person(models.Model):
         upload_to='staff',
         verbose_name='фото',
         help_text='фото має бути розміром 300x300 px',
-        null=True,
-        blank=True
+        # null=True,
+        # blank=True
     )
 
     birthday = models.DateField()
     phone = models.CharField(max_length=16, null=True, blank=True, verbose_name='телефон')
     other_phone = models.CharField(max_length=16, null=True, blank=True, verbose_name='додатковий телефон')
 
+    life_credo = models.CharField(
+        max_length=256,
+        null=True,
+        blank=True,
+        verbose_name='Життєве кредо',
+        # help_text=''
+    )
+
+    about_me = HTMLField(
+        null=True,
+        blank=True,
+        verbose_name='Про себе',
+        # help_text=''
+    )
+
     def __str__(self):
-        return self.get_fullname()
+        return self.get_initials()
 
     def get_initials(self):
         return f'{self.lastname} {self.firstname[0]}. {self.patronymic[0]}.'
 
     def get_fullname(self):
         return f'{self.lastname} {self.firstname} {self.patronymic}'
+
 
     @property
     def show_photo(self):

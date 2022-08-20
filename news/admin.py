@@ -12,6 +12,8 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'date_created',
+        'author',
+        'categories',
         'is_published',
     )
 

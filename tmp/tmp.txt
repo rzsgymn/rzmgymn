@@ -34,3 +34,14 @@ window.onload=function(e){
 
 }
 </script>
+
+
+
+                    {% if person.sex %}
+                    чоловік
+                    {% elif %}
+                    жінка
+                    {% endif %}
+
+
+|dictsort:type_of_social_network

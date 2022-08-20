@@ -20,8 +20,8 @@ def index(request):
             })
 
         administration.append({
-            "name": str(admin),
-            "position": str(admin.position),
+            "name": admin,
+            "position": admin.position,
             "social_network": social_network,
             "src": admin.person_admin.photo.url if admin.person_admin.photo else None,
         })
@@ -37,45 +37,70 @@ def index(request):
 
 
 def get_json_menu(request):
+
     json = {
-        'data': [
+        'main_menu': [
             {
                 'name': 'Головна',
                 'link': '/',
             },
-            {
-                'name': 'Про нас',
-                'link': '/about',
-            },
+            # {
+            #     'name': 'Про нас',
+            #     'link': '/about',
+            # },
             {
                 'name': 'Новини',
                 'link': '/blog',
             },
             {
-                'name': 'Teachers',
-                'link': '/teachers',
+                'name': 'Колектив',
+                'link': '/staff',
+            },
+            # {
+            #     'name': 'Pages',
+            #     'sub_link': [
+            #         {
+            #             'name': 'Blog Grid',
+            #             'link': 'qwerqwer',
+            #         },
+            #         {
+            #             'name': 'Blog Detail',
+            #             'link': 'qwerqwer',
+            #         },
+            #     ]
+            # },
+            # {
+            #     'name': 'Документи',
+            #     'link': '/contact',
+            # },
+            # {
+            #     'name': 'Галерея',
+            #     'link': '/galeru',
+            # },
+            # {
+            #     'name': 'Контакти',
+            #     'link': '/contact',
+            # },
+        ],
+        'footer_menu_row1': [
+            {
+                'name': 'психолог',
+                'link': 'asd',
             },
             {
-                'name': 'Галерея',
-                'link': '/galeru',
+                'name': 'Бібліотека',
+                'link': 'asd',
+            }
+        ],
+        'footer_menu_row2': [
+            {
+                'name': 'дистанційне',
+                'link': 'гавча',
             },
             {
-                'name': 'Pages',
-                'sub_link': [
-                    {
-                        'name': 'Blog Grid',
-                        'link': 'qwerqwer',
-                    },
-                    {
-                        'name': 'Blog Detail',
-                        'link': 'qwerqwer',
-                    },
-                ]
-            },
-            {
-                'name': 'Контакти',
-                'link': '/contact',
-            },
+                'name': 'закупівлі',
+                'link': 'asd',
+            }
         ]
     }
 

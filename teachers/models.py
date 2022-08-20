@@ -1,4 +1,5 @@
 from django.db import models
+
 from staff.models import Person
 
 
@@ -6,10 +7,17 @@ class Lesson(models.Model):
     class Meta:
         verbose_name_plural = 'Уроки'
 
-    name = models.CharField(max_length=64, unique=True, verbose_name="назва")
+    name = models.CharField(max_length=64, unique=True, verbose_name="назва", help_text='приклад: математика')
+
+    genitive_case_of_name = models.CharField(
+        max_length=64,
+        unique=True,
+        verbose_name="родовий відмінок",
+        help_text='приклад: математики'
+    )
 
     def __str__(self):
-        return self.name
+        return self.genitive_case_of_name
 
 
 class Category(models.Model):
@@ -17,6 +25,13 @@ class Category(models.Model):
         verbose_name_plural = 'Категорії'
 
     name = models.CharField(max_length=64, unique=True, verbose_name="назва")
+
+    mass = models.SmallIntegerField(
+        default=0,
+        unique=True,
+        verbose_name='ранг',
+        help_text='ранг має бути унікальним для кожногї категорії'
+    )
 
     def __str__(self):
         return self.name
@@ -36,15 +51,15 @@ class Teacher(models.Model):
     class Meta:
         verbose_name_plural = 'Вчителі'
 
-    person = models.ForeignKey(
+    person = models.OneToOneField(
         Person,
         on_delete=models.CASCADE,
         verbose_name='Працівник',
     )
 
-    lessons = models.ManyToManyField(Lesson, verbose_name="уроки")
+    lessons = models.ManyToManyField(Lesson, verbose_name="уроки", blank=True)
 
-    categories = models.ForeignKey(Category, models.CASCADE, verbose_name="категорія")
+    categories = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="категорія")
 
     ranks = models.ManyToManyField(
         Rank,
