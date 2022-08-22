@@ -18,14 +18,24 @@ class AlertsAdmin(admin.ModelAdmin):
         "is_published",
     )
 
+    class Media:
+        css = {
+            'all': ('css/admin/alerts.css',)
+        }
+        js = ('js/admin/alerts.js',)
+
 
 @admin.register(Facility)
 class FacilityAdmin(admin.ModelAdmin):
     list_display = (
         "title",
+        "mass",
         "class_name_icon",
         "description",
     )
+
+    class Media:
+        js = ('js/admin/facility.js',)
 
 
 @admin.register(Testimonial)

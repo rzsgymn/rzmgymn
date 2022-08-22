@@ -61,9 +61,13 @@ class Alerts(models.Model):
     style = models.CharField(
         max_length=32,
         choices=__CLASS_NAME,
+        verbose_name='стиль',
     )
 
-    body = HTMLField()
+    body = HTMLField(
+        verbose_name='контент',
+        help_text='для більш вражаючого ефекту використовуйте тег hr'
+    )
 
     is_published = models.BooleanField(default=True, verbose_name='Публікувати')
 
@@ -124,14 +128,23 @@ class Facility(models.Model):
         ("flaticon-049-cutlery", "049-cutlery"),
         ("flaticon-050-fence", "050-fence"),
     )
+
     title = models.CharField(max_length=32, verbose_name='заголовок')
+
     class_name_icon = models.CharField(
         max_length=64,
         verbose_name="ім'я класу іконки",
-        # help_text="ім'я класу вписуйте без крапки",
+        help_text="вигляд та ім'я класу дивись нижче",
         choices=__ICON,
     )
     description = models.CharField(max_length=256, verbose_name='опис')
+
+    mass = models.SmallIntegerField(
+        default=0,
+        unique=True,
+        verbose_name='позиція',
+        help_text='позиція має бути унікальним для кожногї зручності'
+    )
 
     def __str__(self):
         return self.title
@@ -143,11 +156,28 @@ class Testimonial(models.Model):
 
     __SIZE_PHOTO = 50
 
-    name = models.CharField(max_length=32, verbose_name="ім'я")
-    profession = models.CharField(max_length=32, verbose_name="професія", null=True, blank=True)
-    photo = models.ImageField(upload_to='testimonials', verbose_name='фото',
-                              help_text='фото має бути розміром 100x100 px')
-    text = models.CharField(max_length=256, verbose_name='відгук')
+    name = models.CharField(
+        max_length=32,
+        verbose_name="ім'я",
+        help_text="дотримуйтесь заздалегіть вибраного шаблону. Приклад: прізвище, ім'я або ім'я та по батькові"
+    )
+    profession = models.CharField(
+        max_length=32,
+        verbose_name="професія",
+        null=True,
+        blank=True,
+        help_text="перше слово з маленької букви"
+    )
+    photo = models.ImageField(
+        upload_to='testimonials',
+        verbose_name='фото',
+        help_text='фото має бути розміром 100x100 px'
+    )
+    text = models.CharField(
+        max_length=256,
+        verbose_name='відгук',
+        help_text='всі відгуки мають місти однакову кількість слів для кращого дизайну'
+    )
 
     @property
     def show_photo(self):

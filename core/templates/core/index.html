@@ -7,11 +7,10 @@
     <div class="row align-items-center px-3">
         <div class="col-lg-6 text-center text-lg-left">
             <h4 class="text-white mb-4 mt-5 mt-lg-0">Вас вітає</h4>
-            <!-- <h1 class="display-3 font-weight-bold text-white">Комунальний заклад</h1> -->
             <h1 class="text-white">Комунальний заклад "Розсошенська гімназія<br> Щербанівської сільської ради
                 <br>Полтавського району<br> Полтавської області"!</h1>
-            <p class="text-white mb-4">Ознайомитись з картою сайту</p>
-            <a href="" class="btn btn-secondary mt-1 py-3 px-5">тисніть тут</a>
+<!--            <p class="text-white mb-4">Ознайомитись з картою сайту</p>-->
+<!--            <a href="" class="btn btn-secondary mt-1 py-3 px-5">тисніть тут</a>-->
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <img class="img-fluid mt-5" src="{% static 'img/header.png' %}" alt="">
@@ -55,7 +54,8 @@
 <!-- Facilities Start -->
 
 
-<!-- Team Start -->
+<!-- Administration Start -->
+{% if administration %}
 <div class="container-fluid pt-5">
     <div class="container">
         <div class="text-center pb-2">
@@ -86,10 +86,12 @@
     </div>
 </div>
 </div>
-<!-- Team End -->
+{% endif %}
+<!-- Administration End -->
 
 
-<!-- Testimonial Start -->
+<!-- Parents Start -->
+{% if testimonials %}
 <div class="container-fluid py-5">
     <div class="container p-0">
         <div class="text-center pb-2">
@@ -109,7 +111,9 @@
                          alt="Image">
                     <div class="pl-3">
                         <h5>{{ testimonial.name }}</h5>
+                        {% if testimonial.profession %}
                         <i>{{ testimonial.profession }}</i>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -118,7 +122,8 @@
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
+{% endif %}
+<!-- Parents End -->
 
 <!-- Blog Start -->
 <div class="container-fluid pt-5">

@@ -6,8 +6,8 @@ COUNT_NEWS_OF_PAGE = 9
 
 
 def blog(request):
-    print(dir(request))
-    print(request.COOKIES)
+    # print(dir(request))
+    # print(request.COOKIES)
     # print(request.META)
     active_category = request.GET.get('cat', '')
 
