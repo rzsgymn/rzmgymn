@@ -31,16 +31,16 @@
         <div class="row">
             <div class="col-12 text-center mb-2">
                 <div class="list-inline mb-4" id="portfolio-flters">
-                    <a class="btn category_link m-1 category_link_active" href="/blog">Всі</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Алгебра">Адміністрація</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Відпочинок">Вчиталі</a>
-                    <a class="btn category_link m-1" href="/blog?cat=НУШ">Психолог</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Навчальна діяльність">Бібліотекарь</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Навчання">Педагоги оргінізатори</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Мед-сестра</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Керівники гурьків</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Бугалтери</a>
-                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Зав госп</a>
+                    <a class="btn category_link m-1 category_link_active" href="{% url 'staff' %}">Всі</a>
+                    <a class="btn category_link m-1" href="{% url 'staff' %}?cat=адміністрація">Адміністрація</a>
+                    <a class="btn category_link m-1" href="{% url 'staff' %}?cat=вчителі">Вчиталі</a>
+<!--                    <a class="btn category_link m-1" href="/blog?cat=НУШ">Психолог</a>-->
+<!--                    <a class="btn category_link m-1" href="/blog?cat=Навчальна діяльність">Бібліотекарь</a>-->
+<!--                    <a class="btn category_link m-1" href="/blog?cat=Навчання">Педагоги оргінізатори</a>-->
+<!--                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Мед-сестра</a>-->
+<!--                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Керівники гурьків</a>-->
+<!--                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Бугалтери</a>-->
+<!--                    <a class="btn category_link m-1" href="/blog?cat=Патріотичне виховання">Зав госп</a>-->
 
                 </div>
             </div>
@@ -56,12 +56,11 @@
                     <h4>{{ person.get_fullname }}</h4>
                 </a>
 
-                {% with administration=person.administration_set.first %}
+                {% with administration=person.administration %}
                     {% if administration %}
-                    <i>{{administration.position}}</i><br>
+                    <i>{{ administration.position }}</i><br>
                     {% endif %}
                 {% endwith %}
-
                 {% with teacher=person.teacher %}
                 {% if teacher %}
                 <i>
@@ -98,5 +97,13 @@
 <!--        }-->
 <!--    }-->
 <!--</script>-->
-
+    let active_category = '{{ active_category }}';
+    let children_cat = document.getElementById('portfolio-flters').children;
+    for (let i = 1; i < children_cat.length; i++) {
+        if (children_cat[i].text == active_category) {
+            children_cat[i].classList.toggle('category_link_active');
+            children_cat[0].classList.toggle('category_link_active');
+            break;
+        }
+    }
 {% endblock %}

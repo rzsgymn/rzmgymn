@@ -29,11 +29,11 @@ class Administration(models.Model):
         verbose_name='посада'
     )
 
-    person_admin = models.ForeignKey(
+    person = models.OneToOneField(
         Person,
         on_delete=models.CASCADE,
         verbose_name='працівник',
     )
 
     def __str__(self):
-        return self.person_admin.get_fullname()
+        return self.person.get_fullname()

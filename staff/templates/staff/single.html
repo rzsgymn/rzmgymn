@@ -19,7 +19,7 @@
             <div class="col-lg-8 text-white text-center">
                 <h1 class="mb-3 mt-3 text-white">{{ person.get_fullname }}</h1>
 
-                {% with administration=person.administration_set.first %}
+                {% with administration=person.administration %}
                 {% if administration %}
                 <h5 class="text-white">{{ administration.position }}</h5>
                 {% endif %}
@@ -87,9 +87,12 @@
                     <tbody>
                     {% for certificate in certificates %}
                     <tr class="text-center">
-                        <td class="text-left"><a href="{{ certificate.link }}" target="_blank">{{ certificate.name }}</a></td>
+                        <td class="text-left">
+                            <a href="{{ certificate.link }}" target="_blank">{{ certificate.name }}</a>
+                        </td>
                         <td>{{ certificate.type_doc }}</td>
 
+                        {% if certificate.platform %}
                         {% with platform_link=certificate.platform.link %}
                         {% if platform_link %}
                         <td>
@@ -100,6 +103,10 @@
                         <td>{{ certificate.platform }}</td>
                         {% endif %}
                         {% endwith %}
+                        {% else %}
+                        <td>---</td>
+                        {% endif %}
+
 
                         {% if certificate.number_of_hours %}
                         <td>{{ certificate.number_of_hours }}</td>

@@ -13,7 +13,7 @@ def index(request):
     administration = []
     for admin in Administration.objects.all():
         social_network = []
-        for item in admin.person_admin.socialnetworkofuser_set.all():
+        for item in admin.person.socialnetworkofuser_set.all():
             social_network.append({
                 "link": item.link,
                 "class_name": item.type_of_social_network.class_name,
@@ -23,7 +23,7 @@ def index(request):
             "name": admin,
             "position": admin.position,
             "social_network": social_network,
-            "src": admin.person_admin.photo.url if admin.person_admin.photo else None,
+            "src": admin.person.photo.url if admin.person.photo else None,
         })
     news = News.objects.filter(is_published=True).order_by('-date_created')[:3]
     context = {

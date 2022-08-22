@@ -79,7 +79,6 @@
 {% endblock %}
 
 {% block script %}
-<script>
     let active_category = '{{ active_category }}';
     let children_cat = document.getElementById('portfolio-flters').children;
     for (let i = 1; i < children_cat.length; i++) {
@@ -89,6 +88,4 @@
             break;
         }
     }
-</script>
-
 {% endblock %}

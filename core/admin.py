@@ -1,13 +1,14 @@
 from django.contrib import admin
 
-from .models import Facility, Testimonial, Menu, Alerts
-
-
-@admin.register(Menu)
-class MenuAdmin(admin.ModelAdmin):
-    list_display = (
-        "type_menu",
-    )
+from .models import Facility, Testimonial, Alerts
+# from .models import Menu
+#
+#
+# @admin.register(Menu)
+# class MenuAdmin(admin.ModelAdmin):
+#     list_display = (
+#         "type_menu",
+#     )
 
 
 @admin.register(Alerts)

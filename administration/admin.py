@@ -13,6 +13,6 @@ class TypeOfAdministrativePositionAdmin(admin.ModelAdmin):
 @admin.register(Administration)
 class AdministrationAdmin(admin.ModelAdmin):
     list_display = (
-        'person_admin',
+        'person',
         'position',
     )

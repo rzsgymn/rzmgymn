@@ -190,15 +190,12 @@
 {% endblock %}
 
 {% block script %}
+<script>
+    window.onload=function(e){
+        let el = document.getElementById('carousel-inner')
+        el.firstElementChild.classList.add('active')
+    }
+</script>
 {% endblock %}
 
-<script>
-    let el = document.getElementById('carousel-inner')
-    el.firstElementChild.classList.add('active')
 
-
-
-
-
-
-</script>

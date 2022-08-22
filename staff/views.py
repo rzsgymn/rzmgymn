@@ -2,12 +2,25 @@ from django.shortcuts import render, get_object_or_404
 
 from .models import Person
 from teachers.models import Lesson, Category
+from administration.models import Administration
+from teachers.models import Teacher
 
 
 def staff(request):
-    persons = Person.objects.filter(liberated=True)
+    active_category = request.GET.get('cat', '')
+    if active_category == 'адміністрація':
+        # persons = Person.objects.filter(categories__name=active_category).filter(liberated=True).order_by('-lastname')
+        #  = Administration.objects.all()
+        # admins = Administration.objects.order_by('get_lastname')
+        persons = [admin.person for admin in Administration.objects.order_by('person__lastname')]
+    elif active_category == 'вчителі':
+        persons = [teacher.person for teacher in Teacher.objects.order_by('person__lastname')]
+    else:
+        persons = Person.objects.filter(liberated=True).order_by('lastname')
+
     context = {
         "persons": persons,
+        'active_category': active_category,
     }
     return render(request, 'staff/staff.html', context=context)
 
