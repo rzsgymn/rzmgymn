@@ -84,22 +84,22 @@ def get_json_menu(request):
         ],
         'footer_menu_row1': [
             {
-                'name': 'психолог',
-                'link': 'asd',
+                'name': 'test',
+                'link': '#',
             },
             {
-                'name': 'Бібліотека',
-                'link': 'asd',
+                'name': 'test',
+                'link': '#',
             }
         ],
         'footer_menu_row2': [
             {
-                'name': 'дистанційне',
-                'link': 'гавча',
+                'name': 'test2',
+                'link': '#',
             },
             {
-                'name': 'закупівлі',
-                'link': 'asd',
+                'name': 'test2',
+                'link': '#',
             }
         ]
     }

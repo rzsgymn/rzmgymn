@@ -8,18 +8,15 @@ from teachers.models import Teacher
 
 def staff(request):
     active_category = request.GET.get('cat', '')
-    if active_category == 'адміністрація':
-        # persons = Person.objects.filter(categories__name=active_category).filter(liberated=True).order_by('-lastname')
-        #  = Administration.objects.all()
-        # admins = Administration.objects.order_by('get_lastname')
+    if active_category == 'Адміністрація':
         persons = [admin.person for admin in Administration.objects.order_by('person__lastname')]
-    elif active_category == 'вчителі':
+    elif active_category == 'Вчителі':
         persons = [teacher.person for teacher in Teacher.objects.order_by('person__lastname')]
     else:
         persons = Person.objects.filter(liberated=True).order_by('lastname')
 
     context = {
-        "persons": persons,
+        'persons': persons,
         'active_category': active_category,
     }
     return render(request, 'staff/staff.html', context=context)
