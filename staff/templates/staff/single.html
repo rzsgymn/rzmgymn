@@ -33,10 +33,14 @@
                     {% else %}
                     Вчителька
                     {% endif %}
-                    {{teacher.lessons.all|join:', '}}
+                    {{ teacher.lessons.all|join:', ' }}
                 </h5>
                 {% endif %}
                 {% endwith %}
+
+                {% for cat in person.otherstaff.categories.all %}
+                <h5 class="text-white">{{ cat }}</h5>
+                {% endfor %}
 
                 {% if info_about_teacher %}
                 <p>{{ info_about_teacher }}</p>

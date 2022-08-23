@@ -4,20 +4,29 @@ from .models import Person
 from teachers.models import Lesson, Category
 from administration.models import Administration
 from teachers.models import Teacher
+from other_staff.models import Category as CategoryOtherOfStaff
 
 
 def staff(request):
     active_category = request.GET.get('cat', '')
+    if not active_category:
+        persons = Person.objects.filter(liberated=True).order_by('lastname')
     if active_category == 'Адміністрація':
         persons = [admin.person for admin in Administration.objects.order_by('person__lastname')]
     elif active_category == 'Вчителі':
         persons = [teacher.person for teacher in Teacher.objects.order_by('person__lastname')]
-    else:
-        persons = Person.objects.filter(liberated=True).order_by('lastname')
+    elif active_category:
+        persons = []
+        cat = CategoryOtherOfStaff.objects.filter(name=active_category).first()
+        if not cat:
+            cat = CategoryOtherOfStaff.objects.filter(names=active_category).first()
+        if cat:
+            persons = [other_staff.person for other_staff in cat.otherstaff_set.all().order_by('person__lastname')]
 
     context = {
         'persons': persons,
         'active_category': active_category,
+        'cat_other_staff': CategoryOtherOfStaff.objects.order_by('name'),
     }
     return render(request, 'staff/staff.html', context=context)
 

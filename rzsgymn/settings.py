@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'news',
     'administration',
     'teachers',
+    'other_staff',
     'certificate',
     'pages',
     'django.contrib.admin',

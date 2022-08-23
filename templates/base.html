@@ -48,6 +48,7 @@
                 <div class="navbar-nav font-weight-bold mx-auto py-0" id="mainMenu">
                     <a href="{% url 'index' %}" class="nav-item nav-link">Головна</a>
                     <a href="{% url 'blog' %}" class="nav-item nav-link">Новини</a>
+                    <a href="{% url 'staff' %}" class="nav-item nav-link">Колектив</a>
                    <!--  <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu rounded-0 m-0">
@@ -153,100 +154,98 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
-    <style type="text/css">
-        
-    </style>
     <script>
 
         window.onload=function(e){
 
-            $.ajax('http://127.0.0.1:8000/api/menu')
-             .done(data => renderMenu(data))
-             .fail((xhr, status) => console.log('error:', status));
+            // $.ajax('http://127.0.0.1:8000/api/menu')
+            //  .done(data => renderMenu(data))
+            //  .fail((xhr, status) => console.log('error:', status));
 
-            let renderMenu = (data) => {
-                // render main_menu
-                let listLink = data.main_menu
-                if (listLink) {
+            // let renderMenu = (data) => {
+            //     // render main_menu
+            //     let listLink = data.main_menu
+            //     if (listLink) {
 
-                    let mainMenu = document.getElementById('mainMenu');
-                    mainMenu.innerHTML  = '';
+            //         let mainMenu = document.getElementById('mainMenu');
+            //         mainMenu.innerHTML  = '';
 
-                    for (let i = 0; i < listLink.length; i++) {
-                        obj = listLink[i];
-                        if (obj.hasOwnProperty('sub_link')) {
-                            let subListLink = obj.sub_link;
+            //         for (let i = 0; i < listLink.length; i++) {
+            //             obj = listLink[i];
+            //             if (obj.hasOwnProperty('sub_link')) {
+            //                 let subListLink = obj.sub_link;
 
-                            let elemDivDropdown = document.createElement('div');
-                            elemDivDropdown.classList.add('nav-item');
-                            elemDivDropdown.classList.add('dropdown');
+            //                 let elemDivDropdown = document.createElement('div');
+            //                 elemDivDropdown.classList.add('nav-item');
+            //                 elemDivDropdown.classList.add('dropdown');
 
-                            let elemNavLink = document.createElement('a');
-                            elemNavLink.href = "#";
-                            elemNavLink.classList.add('nav-link');
-                            elemNavLink.classList.add('dropdown-toggle');
-                            elemNavLink.setAttribute('data-toggle', 'dropdown');
-                            elemNavLink.text = obj.name;
-                            elemDivDropdown.appendChild(elemNavLink);
-                            
-                            let elemDivDropdownMenu = document.createElement('div');
-                            elemDivDropdownMenu.classList.add('dropdown-menu');
-                            elemDivDropdownMenu.classList.add('rounded-0');
-                            elemDivDropdownMenu.classList.add('m-0');
+            //                 let elemNavLink = document.createElement('a');
+            //                 elemNavLink.href = "#";
+            //                 elemNavLink.classList.add('nav-link');
+            //                 elemNavLink.classList.add('dropdown-toggle');
+            //                 elemNavLink.setAttribute('data-toggle', 'dropdown');
+            //                 elemNavLink.text = obj.name;
+            //                 elemDivDropdown.appendChild(elemNavLink);
 
-                            for (let j = 0; j < subListLink.length; j++) {
-                                sub_obj = subListLink[j];
-                                let elemA = document.createElement('a');
-                                elemA.href = sub_obj.link;
-                                elemA.classList.add('dropdown-item');
-                                elemA.text = sub_obj.name;
-                                elemDivDropdownMenu.appendChild(elemA);
-                                elemDivDropdown.appendChild(elemDivDropdownMenu);
-                            }
+            //                 let elemDivDropdownMenu = document.createElement('div');
+            //                 elemDivDropdownMenu.classList.add('dropdown-menu');
+            //                 elemDivDropdownMenu.classList.add('rounded-0');
+            //                 elemDivDropdownMenu.classList.add('m-0');
 
-                            mainMenu.appendChild(elemDivDropdown);
-                        } else {
-                            let elemA = document.createElement('a');
-                            elemA.href = obj.link;
-                            elemA.classList.add('nav-item');
-                            elemA.classList.add('nav-link');
-                            elemA.text = obj.name;
-                            mainMenu.appendChild(elemA)
-                        };
-                    };
+            //                 for (let j = 0; j < subListLink.length; j++) {
+            //                     sub_obj = subListLink[j];
+            //                     let elemA = document.createElement('a');
+            //                     elemA.href = sub_obj.link;
+            //                     elemA.classList.add('dropdown-item');
+            //                     elemA.text = sub_obj.name;
+            //                     elemDivDropdownMenu.appendChild(elemA);
+            //                     elemDivDropdown.appendChild(elemDivDropdownMenu);
+            //                 }
 
-                    // render footer_menu_row
+            //                 mainMenu.appendChild(elemDivDropdown);
+            //             } else {
+            //                 let elemA = document.createElement('a');
+            //                 elemA.href = obj.link;
+            //                 elemA.classList.add('nav-item');
+            //                 elemA.classList.add('nav-link');
+            //                 elemA.text = obj.name;
+            //                 mainMenu.appendChild(elemA)
+            //             };
+            //         };
 
-                    let render_footer_menu = (elemId) => {
-                        let footer_menu_row1 = document.getElementById(elemId);
-                        let listLink = data[elemId]
-                        for (let i = 0; i < listLink.length; i++) {
-                            let obj = listLink[i]
+            //         // render footer_menu_row
 
-                            let elemLink = document.createElement('a');
-                            elemLink.classList.add('text-white');
-                            elemLink.classList.add('mb-2');
-                            elemLink.href = obj.link;
+            //         let render_footer_menu = (elemId) => {
+            //             let footer_menu_row1 = document.getElementById(elemId);
+            //             let listLink = data[elemId]
+            //             for (let i = 0; i < listLink.length; i++) {
+            //                 let obj = listLink[i]
 
-                            let elemIco = document.createElement('i');
-                            elemIco.classList.add('fa');
-                            elemIco.classList.add('fa-angle-right');
-                            elemIco.classList.add('mr-2');
+            //                 let elemLink = document.createElement('a');
+            //                 elemLink.classList.add('text-white');
+            //                 elemLink.classList.add('mb-2');
+            //                 elemLink.href = obj.link;
 
-                            elemLink.appendChild(elemIco);
-                            elemLink.append(obj.name);
+            //                 let elemIco = document.createElement('i');
+            //                 elemIco.classList.add('fa');
+            //                 elemIco.classList.add('fa-angle-right');
+            //                 elemIco.classList.add('mr-2');
 
-                            footer_menu_row1.appendChild(elemLink);
-                        };
-                    };
-                    render_footer_menu('footer_menu_row1');
-                    render_footer_menu('footer_menu_row2');
+            //                 elemLink.appendChild(elemIco);
+            //                 elemLink.append(obj.name);
 
-                };
-            };
+            //                 footer_menu_row1.appendChild(elemLink);
+            //             };
+            //         };
+            //         render_footer_menu('footer_menu_row1');
+            //         render_footer_menu('footer_menu_row2');
+
+            //     };
+            // };
+
+        {% block script %}
+        {% endblock %}
         };
-    {% block script %}
-    {% endblock %}
     </script>
 
 </body>
